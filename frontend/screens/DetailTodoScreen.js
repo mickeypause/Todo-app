@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput} from "react-native"
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput, Alert} from "react-native"
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import GetDimensions from "../components/GetDimensions";
@@ -37,6 +37,27 @@ export default function DetailTodoScreen({route, navigation}) {
         }  
     }
 
+    const deleteAlert = () => {
+        Alert.alert(
+            'Delete todo',
+            'Are you sure that you want to delete todo?',
+            [
+                {
+                    text: 'Yes', 
+                    onPress: () => {
+                        deleteTodo()
+                        navigation.navigate('Home')
+                    }
+                },
+                {
+                    text: 'No',
+                    style: 'destructive'
+                },
+                
+            ]
+        )
+    }
+
     
     return( 
         <SafeAreaView>
@@ -63,9 +84,7 @@ export default function DetailTodoScreen({route, navigation}) {
                         <Ionicons name="ios-pencil" size={26} color="#398640" />
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => {
-                        deleteTodo(),
-                        navigation.navigate('Home')
-                
+                        deleteAlert()
                     }}>
                         <AntDesign name="delete" size={26} color="#398640" />
                     </TouchableOpacity>
